@@ -1,0 +1,72 @@
+// Mars Rover Transportation System
+// Differential Drive Motor Control
+// Hardware: Arduino Uno + L298N Motor Driver
+// Author: Sahaj
+// Role: Transportation — Mars Rover Project
+
+#define IN1 8
+#define IN2 9
+#define IN3 10
+#define IN4 11
+#define ENA 5
+#define ENB 6
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+}
+
+void moveForward(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnLeft(int speed) {
+  analogWrite(ENA, speed / 2);
+  analogWrite(ENB, speed);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void turnRight(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed / 2);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+}
+
+void stopMotors() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+void moveBackward(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+}
+
+void loop() {
+  moveForward(200);   delay(2000);
+  turnLeft(150);      delay(1000);
+  turnRight(150);     delay(1000);
+  moveBackward(180);  delay(1000);
+  stopMotors();       delay(500);
+}
